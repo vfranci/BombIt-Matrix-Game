@@ -332,11 +332,11 @@ const int bombBonusWeight = 20;
 float playerScore;
 const int baseScore = 0;
 int bombCounter = 0;
-int gameStartTime;
+unsigned long gameStartTime;
 int recordedTime;
 int soundVal;
 int lastSoundVal = -1;
-unsigned long lastMillisAbout = 0;
+unsigned long lastMillisAbout = 0; 
 const int lcdWidth = 16; 
 const int lcdHeight = 2;
 int index = 0;
@@ -813,7 +813,6 @@ void currentMenuState(){
       inGame = true;
       playerActive = true;
       gameStartTime = millis();
-      gameStartTime = millis();
       collision = false;
       break;
     }
@@ -962,6 +961,7 @@ void printGameResults(){
 
 void inGameLCD(){
   if(millis() - hudTime > hudDelay){
+
   lcd.clear();
   lcd.setCursor(positionZero, positionZero);
   lcd.print("Bombs used: ");
@@ -969,6 +969,7 @@ void inGameLCD(){
   lcd.setCursor(positionZero, firstPos);
   lcd.print("Time: ");
   lcd.print((millis() - gameStartTime)/millisToSeconds);
+  Serial.print((millis() - gameStartTime)/millisToSeconds);
   hudTime = millis();
   }
 }
@@ -1055,16 +1056,17 @@ void moveOnLCD() {
           }
         }
           else if (currentState == IN_TRY_AGAIN){
+            gameStartTime = millis();
             generateMatrix();
             if (tryAgainPosition == positionZero){
               currentState = MAIN_MENU;  
               lcdTryAgain = -firstPos;
               lcdPosition = -firstPos;
             } else if (tryAgainPosition == firstPos){
+              generateMatrix();
               currentState = IN_GAME;
               gameStartTime = millis();
               collision = false;
-              gameStartTime = millis();
               lcdTryAgain = -firstPos;
               inGame = true;
               playerActive = true;
