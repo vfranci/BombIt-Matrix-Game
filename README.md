@@ -26,6 +26,6 @@ In order to build the hardware aspect of the game, I used the Arduino UNO microc
 
 ![Setup](https://github.com/vfranci/BombIt-Matrix-Game/assets/115077321/68101ed9-8334-4b5b-920e-4ad0e2a94ea5)
 
-Video demo: https://youtu.be/s_qTXY19jb4?si=UJOORCHuB3rpo5zU
+Video demo: https://youtu.be/D2rI1pbAQvc?si=GzyMGTuThaX9zBt9
 
 
