@@ -58,6 +58,9 @@ int rowStart = 0;
 int rowEnd = 7;
 int colStart = 0;
 int colEnd = 7;
+unsigned long hudTime = 0;
+const unsigned long hudDelay = 500;
+
 
 byte matrix[2 * matrixSize][2 * matrixSize] = {
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -736,7 +739,7 @@ void checkGameWon() {
   }
   if (counter == (bigMatrixSize * bigMatrixSize)) {
     gameWin();
-    gameStartTime = resetVal;
+    gameStartTime = millis();
   }
 }
 
@@ -752,7 +755,7 @@ void gameWin() {
   gameWon = true;
   recordedTime = millis()/millisToSeconds - gameStartTime/millisToSeconds;
   playerScore = calculateScore(recordedTime, bombCounter);
-  gameStartTime = resetVal;
+  gameStartTime = millis();
 }
 
 void generateMatrix() {
@@ -768,7 +771,7 @@ float calculateScore(unsigned long elapsedMillis, int bombs) {
   float timeBonus = timeBonusWeight * (one - static_cast<float>(elapsedMillis) / (elapsedMillis + one));
   float bombBonus = bombBonusWeight * (one - static_cast<float>(bombs) / (bombs + one));
   float totalScore = (baseScore + timeBonus + bombBonus) * hundred;
-  gameStartTime = resetVal;
+  gameStartTime = millis();
   return totalScore;
 }
 ////////////////////////////////////////////////////////    GAME FUNCTIONS  /////////////////////////////////////////////////////////////////////////////////
@@ -809,7 +812,7 @@ void currentMenuState(){
       colEnd = matrixEnd;
       inGame = true;
       playerActive = true;
-      gameStartTime = resetVal;
+      gameStartTime = millis();
       gameStartTime = millis();
       collision = false;
       break;
@@ -869,7 +872,7 @@ void currentMenuState(){
       rowEnd = matrixEnd;
       colStart = matrixStart;
       colEnd = matrixEnd;
-      gameStartTime = matrixStart;
+      gameStartTime = millis();
       playerActive = true;
       if(gameWon){
         Player newPlayer;
@@ -884,7 +887,7 @@ void currentMenuState(){
      }
      case IN_TRY_AGAIN: {
       generateMatrix();
-        gameStartTime = resetVal;
+        gameStartTime = millis();
       if (lcdTryAgain != tryAgainPosition) {
         lcdTryAgain = tryAgainPosition;
         tryAgain();
@@ -901,7 +904,7 @@ void currentMenuState(){
       rowLastPos = matrixStart;
       colLastPos = matrixStart;
       Player newPlayer;
-      gameStartTime = resetVal;
+      gameStartTime = millis();
       playerName.toCharArray(newPlayer.name, four);
       newPlayer.score = playerScore;
       if(!playerAdded){
@@ -954,10 +957,11 @@ void printGameResults(){
   lcd.setCursor(positionZero, firstPos);
   lcd.print("Main menu: ");
   lcd.write(three);
-  gameStartTime = resetVal;
+  gameStartTime = millis();
 }
 
 void inGameLCD(){
+  if(millis() - hudTime > hudDelay){
   lcd.clear();
   lcd.setCursor(positionZero, positionZero);
   lcd.print("Bombs used: ");
@@ -965,6 +969,8 @@ void inGameLCD(){
   lcd.setCursor(positionZero, firstPos);
   lcd.print("Time: ");
   lcd.print((millis() - gameStartTime)/millisToSeconds);
+  hudTime = millis();
+  }
 }
 
 void introMessage() {
@@ -1045,7 +1051,7 @@ void moveOnLCD() {
             currentState = IN_ENTER_NAME;
             playerName = "";
             lcdPositionName = -firstPos;
-            gameStartTime = positionZero;
+            gameStartTime = millis();
           }
         }
           else if (currentState == IN_TRY_AGAIN){
@@ -1056,7 +1062,7 @@ void moveOnLCD() {
               lcdPosition = -firstPos;
             } else if (tryAgainPosition == firstPos){
               currentState = IN_GAME;
-              gameStartTime = resetVal;
+              gameStartTime = millis();
               collision = false;
               gameStartTime = millis();
               lcdTryAgain = -firstPos;
@@ -1201,7 +1207,7 @@ void moveOnLCD() {
         playerAdded = false;
         lcdPosition = -firstPos;
         currentPosition = positionZero;
-        gameStartTime = resetVal;
+        gameStartTime = millis();
         generateMatrix();
       }
       if(currentState == IN_ENTER_NAME){
@@ -1429,7 +1435,7 @@ void LCDBrightness() {
 }
 
 void howToPlay(){
-  String howToPlayText = "Move with joystick, place bombs and destroy walls. Bomb blast and walls can kill you.";
+  String howToPlayText = " Move with joystick, place bombs and destroy walls. Bomb blast and walls can kill you.";
   lcd.setCursor(positionZero, firstPos);
   lcd.print(F("Back to menu: "));
   lcd.write(three);
@@ -1560,11 +1566,9 @@ void tryAgain(){
   lcd.setCursor(positionZero, positionZero);
   if(tryAgainPosition == positionZero){
     lcd.write(two);
-    lcd.print(F("Back to menu: "));
-    lcd.write(three);
+    lcd.print(F("Back to menu"));
   } else {
-    lcd.print(F("Back to menu: "));
-    lcd.write(three);
+    lcd.print(F("Back to menu"));
   }
   lcd.setCursor(positionZero, firstPos);
   if(tryAgainPosition == firstPos){
