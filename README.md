@@ -9,16 +9,16 @@ The game starts with the player on the upper left of the randomly generated play
 
 When powering the game, a short greeting appears on the LCD for two seconds, then the user is presented with the menu structure as follows:
 The main menu:
-1. **Start game**: selecting this option will generate a new field and start the counters for recording both the play time and number of bombs used; this information is displayed on the LCD in real time; if the player clears the field, they will be able to record their name or alias in three letters, then the score will appear as well; if the player's score is higher than the ones recorded in the highscore leaderboard, the message "New highscore" will appear; if the player loses, they will be given the option to try again or go back to the main menu. 
-2. **Highscore**: when clicking the second menu option, the top 5 recorded scores and players will displayed on the LCD, in descending order.
-3. **Settings**: this tab will open a settings submenu, having the following options:
-   3.1 _Reset highscore_: this option, when clicked, deletes all the logs saved in the leaderboard.
-   3.2 _LCD brightness_: by toggling the joystick left and right, the user can dim or enhance the brightness of the LCD.
-   3.3 _Game brightness_: similarily to 3.1, this option is used to modify the matrix brightness.
-   3.4 _Sounds on/off_: as the game contains sound effects when moving on the playfield, placing bombs or scrolling through the menu, this setting gives the possibility to mute them.
-   3.5 _Main menu_: returning to the main menu.
-4. **About**: selecting this tab will prompt the user to another screen where the name of the game, the author and the github of the author are displayed by scrolling.
-5. **How to play**: similarily to 4, this screen shows brief instructions on playing the game.
+- 1. **Start game**: selecting this option will generate a new field and start the counters for recording both the play time and number of bombs used; this information is displayed on the LCD in real time; if the player clears the field, they will be able to record their name or alias in three letters, then the score will appear as well; if the player's score is higher than the ones recorded in the highscore leaderboard, the message "New highscore" will appear; if the player loses, they will be given the option to try again or go back to the main menu. 
+- 2. **Highscore**: when clicking the second menu option, the top 5 recorded scores and players will displayed on the LCD, in descending order.
+- 3. **Settings**: this tab will open a settings submenu, having the following options:
+   - 3.1 _Reset highscore_: this option, when clicked, deletes all the logs saved in the leaderboard.
+   - 3.2 _LCD brightness_: by toggling the joystick left and right, the user can dim or enhance the brightness of the LCD.
+   - 3.3 _Game brightness_: similarily to 3.1, this option is used to modify the matrix brightness.
+   - 3.4 _Sounds on/off_: as the game contains sound effects when moving on the playfield, placing bombs or scrolling through the menu, this setting gives the possibility to mute them.
+   - 3.5 _Main menu_: returning to the main menu.
+- 4. **About**: selecting this tab will prompt the user to another screen where the name of the game, the author and the github of the author are displayed by scrolling.
+- 5. **How to play**: similarily to iv, this screen shows brief instructions on playing the game.
 
 ## Components and setup
 
